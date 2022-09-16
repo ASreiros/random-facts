@@ -1,7 +1,7 @@
 <template>
     <div class="facts-holder">
-        <Refresh @btn-clicked="refreshFacts" name="Refresh facts"></Refresh>
-        <ul v-for="index in 5" :key="index">
+        <Refresh @btn-clicked="deleteFacts" name="Refresh facts"></Refresh>
+        <ul v-for="index in facts" :key="index">
             <Fact></Fact>
         </ul>
     </div>
@@ -15,7 +15,7 @@ import Fact from './Fact.vue';
     components: { Refresh, Fact },
     data(){
       return{
-        facts:[]
+        facts:5,
       }
     },
 
@@ -25,21 +25,14 @@ import Fact from './Fact.vue';
 
     },
     methods:{
-    async refreshFacts(){
+    deleteFacts(){
+        this.facts = 0;
+        setTimeout(this.refreshFacts, 1)
+    },    
+    refreshFacts(){
       console.log("clicked");
-      this.facts =await this.get();
+      this.facts = 5;
     },
-    async get(){
-       let reply = [];
-
-        for (let i = 0; i < 5; i++) {
-            const res = await fetch(`https://asli-fun-fact-api.herokuapp.com`);
-            const data = await res.json();
-            reply.push(data.data.fact);
-        }
-        console.log(reply);
-        return reply;
-        }
     }
 }
 

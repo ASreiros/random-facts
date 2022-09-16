@@ -9,7 +9,7 @@ export default {
     data(){
       return{
         fact: "",
-        flag:1,
+        flag:5,
       }
     },
 
